@@ -1,7 +1,7 @@
 public class Main {
     public static AllFiles allFiles = new AllFiles(); //Makes one AllFiles object so that we can refer to it later
     public static void main(String[] args) {
-        AllFiles allFiles = new AllFiles();
+        AllFiles allFiles = new AllFiles(); //JUST FOR NOW
         //while (true) {
         //    menu();
         //}

@@ -5,14 +5,16 @@ public class AllFiles {
 
 
     //Constructor
-    public AllFiles() {}
+    public AllFiles() {
+        findFiles();
+    }
 
     //Methods
     /*
      *   Finds all files
      */
     public void findFiles() {
-        File myPath = new File("C:\\Programmering2\\Filhantering\\src"); //
+        File myPath = new File("C:\\Programmering2\\Filhantering\\src"); //Writes out every file in this map.
         String[] allFiles = myPath.list(); //List of all files in allFiles
         for (String filenames : allFiles) { //For everything in allFiles
             System.out.println(filenames);

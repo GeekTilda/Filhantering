@@ -69,21 +69,42 @@ public class AllFiles {
     }
 
     /*
+    *   Method for checking if file already exists!
+    *   https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java <- With help from
+    */
+    public boolean checkFile(String name) {
+        File file = new File(name);
+        if(file.exists() && !file.isDirectory()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /*
      * Method to write data to file
+     * FIX THAT IT ADDS THE FILE IF IT DOESN'T ALREADY EXIST!
      */
     public void writeToFile(String fileName) { //Needs a filename to know which file to write to
         Scanner sc = new Scanner(System.in);
         System.out.print("What do you want to write? ");
         String writing = sc.nextLine();
         String name = "C:\\Programmering2\\Filhantering\\src\\" + fileName; //Sets the path of the file to the one the user put in.
-        try {
-            //Filewriter will append the data in the file
-            FileWriter myWriter = new FileWriter(name, true); //Created pen that lies on this file
-            myWriter.write("\n" + writing); //Writes
-            myWriter.close(); //Needed for it being able to stop writing!
-        } catch (IOException e) {
-            System.out.println("Cannot write to that file! - ERROR");
-            e.printStackTrace();
+        Boolean boolie = checkFile(name);
+        if (boolie == true) {
+            try {
+                //Filewriter will append the data in the file
+                FileWriter myWriter = new FileWriter(name, true); //Created pen that lies on this file
+                myWriter.write("\n" + writing); //Writes
+                myWriter.close(); //Needed for it being able to stop writing!
+            } catch (IOException e) {
+                System.out.println("Cannot write to that file! - ERROR");
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("That file does not exist! ERROR");
         }
     }
 }

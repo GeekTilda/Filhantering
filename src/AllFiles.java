@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -50,11 +51,12 @@ public class AllFiles {
 
     /*
      *   Create a new file if the file does not already exist
+     *   CHANGE FILENAME! ****
      */
     public void createFile() {
         File myFile = new File("test.txt");
         try {
-            if (myFile.createNewFile()) { //If file does not already exits
+            if (myFile.createNewFile()) { //If file does not already exist
                 System.out.println("File added");
             }
             else { //If file already exists
@@ -62,6 +64,25 @@ public class AllFiles {
             }
         } catch (IOException e) { //Input output exception
             System.out.println("Can't do - ERROR");
+            e.printStackTrace();
+        }
+    }
+
+    /*
+     * Method to write data to file
+     */
+    public void writeToFile(String fileName) { //Needs a filename to know which file to write to
+        Scanner sc = new Scanner(System.in);
+        System.out.print("What do you want to write? ");
+        String writing = sc.nextLine();
+        String name = "C:\\Programmering2\\Filhantering\\src\\" + fileName; //Sets the path of the file to the one the user put in.
+        try {
+            //Filewriter will append the data in the file
+            FileWriter myWriter = new FileWriter(name, true); //Created pen that lies on this file
+            myWriter.write("\n" + writing); //Writes
+            myWriter.close(); //Needed for it being able to stop writing!
+        } catch (IOException e) {
+            System.out.println("Cannot write to that file! - ERROR");
             e.printStackTrace();
         }
     }

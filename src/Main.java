@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Main {
     public static AllFiles allFiles = new AllFiles(); //Makes one AllFiles object so that we can refer to it later
     public static void main(String[] args) {
-        AllFiles allFiles = new AllFiles(); //JUST FOR NOW
-        allFiles.longestWordInWords();
+        //AllFiles allFiles = new AllFiles(); //JUST FOR NOW
+        //allFiles.longestWordInWords();
         while (true) {
             menu();
         }
@@ -35,7 +35,7 @@ public class Main {
             case 1:
                 allFiles.findFiles();
             case 2:
-
+                allFiles.allFilesOfTheSameType("txt");
             case 3:
                 allFiles.longestWordInWords();
             case 4:

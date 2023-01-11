@@ -16,12 +16,13 @@ public class AllFiles {
     /*
      *   Finds all files
      */
-    public void findFiles() {
+    public String[] findFiles() {
         File myPath = new File("C:\\Programmering2\\Filhantering\\src"); //Writes out every file in this map.
         String[] allFiles = myPath.list(); //List of all files in allFiles
         for (String filenames : allFiles) { //Goes through every file and writes out the name of it
             System.out.println(filenames);
         }
+        return allFiles;
     }
 
     /*
@@ -105,6 +106,21 @@ public class AllFiles {
         }
         else {
             System.out.println("That file does not exist! ERROR");
+        }
+    }
+
+    /*
+    *   Method to see all files of the same type.
+    *   *** NOT DONE, FIX
+    */
+    public void allFilesOfTheSameType(String theFile) {
+        String[] files = findFiles();
+        for (int i = 0; i < files.length; i++) { //Goes through each String in files
+            String file = files[i];
+            String[] fileType = file.split(".", 1); //Splits the String after the "."
+            if (theFile.equals(fileType)) { //Checks if the file is the same as the one requested
+                System.out.println(file);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AllFiles {
@@ -82,6 +83,18 @@ public class AllFiles {
             return false;
         }
     }
+    /*
+    *   Clears the file of anything written in it
+    */
+    public void clearFile(String fileName) {
+        String name = "C:\\Programmering2\\Filhantering\\src\\" + fileName; //Sets the path of the file to the one the user put in.
+        try {
+            FileWriter writer = new FileWriter(name,false);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /*
      * Method to write data to file
@@ -111,16 +124,40 @@ public class AllFiles {
 
     /*
     *   Method to see all files of the same type.
-    *   *** NOT DONE, FIX
     */
     public void allFilesOfTheSameType(String theFile) {
         String[] files = findFiles();
         for (int i = 0; i < files.length; i++) { //Goes through each String in files
             String file = files[i];
-            String[] fileType = file.split(".", 1); //Splits the String after the "."
-            if (theFile.equals(fileType)) { //Checks if the file is the same as the one requested
-                System.out.println(file);
+            String[] fileType = file.split("[.]", 2); //Splits the String after the "."
+            //String fileExtension = fileType[1];
+            for (int x = 0; x < fileType.length; x++) { //Goes through the array we created
+                if (fileType[x].equals(theFile)) {
+                    System.out.println(file + " TILDA");
+                }
             }
         }
     }
-}
+    /*
+    * Saves a list of people in a file, each name is on a new line.
+    */
+    public void peopleListMethod(ArrayList<String> peps) {
+        Scanner sc = new Scanner(System.in);
+        String name = "C:\\Programmering2\\Filhantering\\src\\Personer.txt";
+            try {
+                //Filewriter will append the data in the file
+                FileWriter myWriter = new FileWriter(name, false); //Created pen that lies on this file
+                for (int i = 0; i < peps.size(); i++) {
+                    myWriter.write( peps.get(i) + "\n"); //Writes
+                }
+                myWriter.close(); //Needed for it being able to stop writing!
+            } catch (IOException e) {
+                System.out.println("Cannot write to that file! - ERROR");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //Find most common letter in words.txt
+
+    //Find all mail-adresses on website and save these in txt file

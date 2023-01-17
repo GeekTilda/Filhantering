@@ -4,7 +4,8 @@ public class Main {
     public static AllFiles allFiles = new AllFiles(); //Makes one AllFiles object so that we can refer to it later
     public static void main(String[] args) {
         //while (true) {
-            menu();
+            //menu();
+            allFiles.findMostCommonLetter();
         //}
     }
 

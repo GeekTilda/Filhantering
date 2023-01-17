@@ -2,11 +2,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class AllFiles {
     //Attributes
-
 
     //Constructor
     public AllFiles() {
@@ -76,7 +77,7 @@ public class AllFiles {
     */
     public boolean checkFile(String name) {
         File file = new File(name);
-        if(file.exists() && !file.isDirectory()) {
+        if(file.exists() && !file.isDirectory()) { //Checks if the file exists and if it isnt the directory.
             return true;
         }
         else {
@@ -144,19 +145,56 @@ public class AllFiles {
     public void peopleListMethod(ArrayList<String> peps) {
         Scanner sc = new Scanner(System.in);
         String name = "C:\\Programmering2\\Filhantering\\src\\Personer.txt";
-            try {
-                //Filewriter will append the data in the file
-                FileWriter myWriter = new FileWriter(name, false); //Created pen that lies on this file
-                for (int i = 0; i < peps.size(); i++) {
-                    myWriter.write( peps.get(i) + "\n"); //Writes
-                }
-                myWriter.close(); //Needed for it being able to stop writing!
-            } catch (IOException e) {
-                System.out.println("Cannot write to that file! - ERROR");
-                e.printStackTrace();
+        try {
+            //Filewriter will append the data in the file
+            FileWriter myWriter = new FileWriter(name, false); //Created pen that lies on this file
+            for (int i = 0; i < peps.size(); i++) {
+                myWriter.write(peps.get(i) + "\n"); //Writes
             }
+            myWriter.close(); //Needed for it being able to stop writing!
+        } catch (IOException e) {
+            System.out.println("Cannot write to that file! - ERROR");
+            e.printStackTrace();
         }
     }
+    /*
+    *   This method find the most commonly used letter in words.txt
+    */
+    public void findMostCommonLetter() {
+        HashMap<String, Integer> alphabet = new HashMap<>();
+        try {
+            Scanner sc = new Scanner(new File("C:\\Programmering2\\Filhantering\\src\\words.txt")); //Puts a scanner on our file "words.txt"
+            while (sc.hasNext()) { //Looks through every new line in our text file
+                String word = sc.next();
+                String[] characters = word.split("");
+                for (String c : characters) { //Does the loop as many times as the word has characters
+                    if (Pattern.matches("[a-zA-Z]+", c)) { //Checks if the character is a letter
+                        if (!alphabet.containsKey(c)) { //Checks if the alphabet doesnt contain this letter
+                            alphabet.put(c, 1);
+                        }
+                        else {
+                            int i = alphabet.get(c) + 1;
+                            alphabet.put(c, i);
+                        }
+                    }
+                    else {
+                        return;
+                    }
+                }
+            }
+            String mostCommon;
+            String rightNow;
+            for (int i = 0; i < alphabet.size(); i++) {
+                //FIX FIX FIX FIX FIX FIX
+            }
+        }
+        catch (IOException e) {
+            System.out.println("Cannot do that! - ERROR");
+            e.printStackTrace();
+        }
+
+    }
+}
 
     //Find most common letter in words.txt
 

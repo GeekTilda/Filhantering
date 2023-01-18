@@ -3,10 +3,9 @@ import java.util.*;
 public class Main {
     public static AllFiles allFiles = new AllFiles(); //Makes one AllFiles object so that we can refer to it later
     public static void main(String[] args) {
-        //while (true) {
-            //menu();
-            allFiles.findMostCommonLetter();
-        //}
+        while (true) {
+            menu();
+        }
     }
 
     public static String askForFileType() {
@@ -45,7 +44,7 @@ public class Main {
             case 3:
                 allFiles.longestWordInWords();
             case 4:
-
+                allFiles.findMostCommonLetter();
             case 5:
                 WroteToFile();
             case 6:

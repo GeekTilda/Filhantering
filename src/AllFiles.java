@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
 
 public class AllFiles {
@@ -158,7 +159,7 @@ public class AllFiles {
         }
     }
     /*
-    *   This method find the most commonly used letter in words.txt
+    *   This method finds the most commonly used letter in words.txt
     */
     public void findMostCommonLetter() {
         HashMap<String, Integer> alphabet = new HashMap<>();
@@ -169,24 +170,33 @@ public class AllFiles {
                 String[] characters = word.split("");
                 for (String c : characters) { //Does the loop as many times as the word has characters
                     if (Pattern.matches("[a-zA-Z]+", c)) { //Checks if the character is a letter
-                        if (!alphabet.containsKey(c)) { //Checks if the alphabet doesnt contain this letter
-                            alphabet.put(c, 1);
+                        String newLetter = c.toLowerCase();
+                        if (!alphabet.containsKey(newLetter)) { //Checks if the alphabet doesn't contain this letter
+                            alphabet.put(newLetter, 1);
+                            System.out.println(newLetter);
                         }
                         else {
-                            int i = alphabet.get(c) + 1;
-                            alphabet.put(c, i);
+                            int i = alphabet.get(newLetter) + 1;
+                            alphabet.put(newLetter, i);
                         }
-                    }
-                    else {
-                        return;
                     }
                 }
             }
-            String mostCommon;
-            String rightNow;
-            for (int i = 0; i < alphabet.size(); i++) {
-                //FIX FIX FIX FIX FIX FIX
+            final int[] mostCommon = {0}; //I dont even know what this is but it was needed because of "->" (Lambda)
+            AtomicReference<String> mostCommonLetter = new AtomicReference<>(""); //I dont even know what this is but it was needed because of "->" (Lambda)
+            alphabet.forEach((k,v) -> { //Looks through the entire alphabet
+                System.out.println(k + ": " + v);
+                if (alphabet.get(k) > mostCommon[0]) { //If the number is bigger than the one we already had as the biggest number of letters
+                    mostCommon[0] = alphabet.get(k);
+                }
+            });
+            for (String key : alphabet.keySet()) { //Goes through each key (String) in alphabet
+                int value = alphabet.get(key);
+                if (value == mostCommon[0]) {
+                    mostCommonLetter.set(key);
+                }
             }
+            System.out.println("Most common letter is " + mostCommonLetter);
         }
         catch (IOException e) {
             System.out.println("Cannot do that! - ERROR");
@@ -195,7 +205,5 @@ public class AllFiles {
 
     }
 }
-
-    //Find most common letter in words.txt
 
     //Find all mail-adresses on website and save these in txt file

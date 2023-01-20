@@ -1,10 +1,10 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.net.URL;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AllFiles {
@@ -202,8 +202,35 @@ public class AllFiles {
             System.out.println("Cannot do that! - ERROR");
             e.printStackTrace();
         }
+    }
+    /*
+    * Find all mail-adresses on website and save these in txt file
+    */
+    public void findEmail() {
+        try {
+            URL url = new URL("https://sms.schoolsoft.se/nti/jsp/student/right_student_staff.jsp?menu=contactlist");
+            Scanner sc = new Scanner(url.openStream());
 
+            StringBuffer cont = new StringBuffer();
+
+            while (sc.hasNext()) {
+                cont.append(sc.next());
+            }
+            String emails = cont.toString();
+            Pattern pattern = Pattern.compile("([a-z0-9_.-]+)@([a-z0-9_.-]+[a-z])");
+            Matcher matcher = pattern.matcher(emails);
+
+            FileWriter fileWriter = new FileWriter("emails.txt", false);
+            Set set = new HashSet();
+            while (matcher.find()) {
+                if (set.add(matcher.group())) {
+                    fileWriter.write(matcher.group() + "\n");
+                }
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("ERROR");
+            e.printStackTrace();
+        }
     }
 }
-
-    //Find all mail-adresses on website and save these in txt file

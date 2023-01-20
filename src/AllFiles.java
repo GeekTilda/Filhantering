@@ -208,23 +208,23 @@ public class AllFiles {
     */
     public void findEmail() {
         try {
-            URL url = new URL("https://sms.schoolsoft.se/nti/jsp/student/right_student_staff.jsp?menu=contactlist");
-            Scanner sc = new Scanner(url.openStream());
+            URL url = new URL("https://sms.schoolsoft.se/nti/jsp/student/right_student_staff.jsp?menu=contactlist"); //The url of the website
+            Scanner sc = new Scanner(url.openStream()); //Opens a scanner on this website to be able to read it.
 
             StringBuffer cont = new StringBuffer();
 
-            while (sc.hasNext()) {
+            while (sc.hasNext()) { //As long as there are a new line on the site, add this to cont
                 cont.append(sc.next());
             }
-            String emails = cont.toString();
-            Pattern pattern = Pattern.compile("([a-z0-9_.-]+)@([a-z0-9_.-]+[a-z])");
-            Matcher matcher = pattern.matcher(emails);
+            String emails = cont.toString(); //Makes everything into a string
+            Pattern pattern = Pattern.compile("([a-z0-9_.-]+)@([a-z0-9_.-]+[a-z])"); //Makes this pattern (a-z or 0-9 + @ ...)
+            Matcher matcher = pattern.matcher(emails); //Checks if the pattern matches the string we have gotten
 
-            FileWriter fileWriter = new FileWriter("emails.txt", false);
-            Set set = new HashSet();
-            while (matcher.find()) {
-                if (set.add(matcher.group())) {
-                    fileWriter.write(matcher.group() + "\n");
+            FileWriter fileWriter = new FileWriter("emails.txt", false); //Sets a writer to the file "emails.txt"
+            Set set = new HashSet(); //Makes sure there is'nt any duplicates
+            while (matcher.find()) { //If an email is found
+                if (set.add(matcher.group())) { //And if the email does not already exist
+                    fileWriter.write(matcher.group() + "\n"); //Writes this out on the file.
                 }
             }
             fileWriter.close();
